@@ -1,0 +1,4 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Mon May 06 11:35:54 COT 2024","Mon May 06 11:36:25 COT 2024","31235","chromium","pruebaValiQC.spec.ts","","","","Automatizacion completa ValiQC",""
+"passed","Mon May 06 11:35:54 COT 2024","Mon May 06 11:36:02 COT 2024","7835","chromium","pruebaValiQC.spec.ts","","","","Login ValiQC",""
+"passed","Mon May 06 11:35:54 COT 2024","Mon May 06 11:36:16 COT 2024","22088","chromium","pruebaValiQC.spec.ts","","","","Crear Analito Cuanti CCI",""
