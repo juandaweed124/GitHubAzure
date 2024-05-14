@@ -13,9 +13,9 @@ test('Login ValiQC', async ({ page }) => {
     await page.waitForTimeout(2000);
     const loginPage = new LoginPage(page);
     await loginPage.clickOnSedeButton();
-    await page.waitForTimeout(1500);
-    await loginPage.clickOnSedeNombre();
     await page.waitForTimeout(1000);
+    await loginPage.clickOnSedeNombre();
+    await page.waitForTimeout(500);
     await loginPage.clickOnLogin();
 });
 
