@@ -59,9 +59,41 @@ test('Automatizacion completa ValiQC', async ({ page }) => {
     await loteManager.seleccionarFechaActual();
 
     await page.getByRole('button', { name: 'Aceptar' }).click();
+    await page.waitForTimeout(1000);
 });
   
   // Termina Crear Lote 
+
+
+  test('Lote Materiales de Control QCI', async ({ page }) => {
+    await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+ 
+    // Realizar el inicio de sesión
+  const LoginUs = new LoginUser(page);
+  await page.waitForTimeout(2000);
+  const loginPage = new LoginPage(page);
+  await loginPage.clickOnSedeButton();
+  await page.waitForTimeout(1000);
+  await loginPage.clickOnSedeNombre();
+  await page.waitForTimeout(500);
+  await loginPage.clickOnLogin();
+    // Finalizar el inicio de sesión
+
+    // Modulo //
+    await page.locator('a').filter({ hasText: 'Control Calidad Interno' }).click();
+    await page.locator('a').filter({ hasText: /^Configuración$/ }).nth(1).click();
+    await page.getByText('Lote Materiales de control').click(); 
+    await page.getByText('Crear').click();
+    // Setear el Lote que se desea asociar con el material de control //
+    await page.locator('.col-sm-6 > div > .mat-form-field > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix').first().click();
+    await page.getByRole('option', { name: 'Lotesimulacionjuan99999' }).click();
+    await page.locator('div:nth-child(2) > div > .mat-form-field > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix').click();
+    await page.getByRole('option', { name: 'Material De Control Juan Simulacion' }).click();
+    await page.locator('#mat-slide-toggle-6 div').first().click();
+   
+    await page.getByText('Crear').click();
+  });
+
 
 /*
 test('Crear Analito Cuali QCI', async ({ page }) => {
@@ -84,28 +116,6 @@ test('Crear Analito Cuali QCI', async ({ page }) => {
   await page.locator('#mat-slide-toggle-6 div').first().click();
   await page.getByRole('button', { name: 'Aceptar' }).click();
 });
-
-
-test('Lote Materiales de Control QCI', async ({ page }) => {
-  // Login //
-  await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
-  const Login = new LoginPage(page)
-  await Login.LoginWithCredentials('ANNARVALI', 'VALIQCANNAR')
-  // Modulo //
-  await page.locator('a').filter({ hasText: 'Control Calidad Interno' }).click();
-  await page.locator('a').filter({ hasText: /^Configuración$/ }).nth(1).click();
-  await page.getByText('Lote Materiales de control').click(); 
-  await page.getByText('Crear').click();
-  // Setear el Lote que se desea asociar con el material de control //
-  await page.locator('.col-sm-6 > div > .mat-form-field > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix').first().click();
-  await page.getByRole('option', { name: 'Lotesimulacionjuan99999' }).click();
-  await page.locator('div:nth-child(2) > div > .mat-form-field > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix').click();
-  await page.getByRole('option', { name: 'Material De Control Juan Simulacion' }).click();
-  await page.locator('#mat-slide-toggle-24').click();
-  await page.pause();
-  await page.getByText('Crear').click();
-});
-
 
 
 test('Ingreso de Datos y visualizacion de graficas CCI', async ({ page }) => {

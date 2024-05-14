@@ -45,6 +45,6 @@ export class LoteManager{
     await this.page.getByText(dia.toString(), { exact: true }).click();
 
     // Activar el toggle de activado
-
+    await this.page.locator('#mat-slide-toggle-12 div').first().click();
     }
 }
