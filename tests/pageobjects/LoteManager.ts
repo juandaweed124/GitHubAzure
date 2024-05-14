@@ -25,9 +25,6 @@ export class LoteManager{
         // Rellenar el campo N° lote con el nombre generado
         await this.page.getByLabel('N° lote *').fill(nombreLote);
 
-        // Pausa opcional para visualizar la página antes de continuar
-        // await this.page.pause();
-
         return nombreLote;
     }
 
@@ -44,7 +41,5 @@ export class LoteManager{
     const dia = fechaActual.getDate();
     await this.page.getByText(dia.toString(), { exact: true }).click();
 
-    // Activar el toggle de activado
-    await this.page.locator('#mat-slide-toggle-12 div').first().click();
     }
 }

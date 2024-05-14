@@ -90,8 +90,8 @@ test('Automatizacion completa ValiQC', async ({ page }) => {
     await page.locator('div:nth-child(2) > div > .mat-form-field > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix').click();
     await page.getByRole('option', { name: 'Material De Control Juan Simulacion' }).click();
     await page.locator('#mat-slide-toggle-6 div').first().click();
-   
-    await page.getByText('Crear').click();
+    await page.pause()
+    await page.getByRole('button', { name: 'Aceptar' }).click();
   });
 
 
