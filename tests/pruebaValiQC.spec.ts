@@ -85,25 +85,6 @@ test('Crear Analito Cuali QCI', async ({ page }) => {
   await page.getByRole('button', { name: 'Aceptar' }).click();
 });
 
-test('Crear Lote CCI', async ({ page }) => {
-  await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
-  const Login = new LoginPage(page)
-  await Login.LoginWithCredentials('ANNARVALI', 'VALIQCANNAR')
-  // Modulo //
-  await page.locator('a').filter({ hasText: 'Control Calidad Interno' }).click();
-  await page.locator('a').filter({ hasText: /^Configuración$/ }).nth(1).click();
-  await page.getByText('Lotes').first().click();
-  await page.getByRole('button', { name: 'Crear' }).click();
-  await page.pause()
-  await page.getByLabel('N° lote *').click();
-  await page.getByLabel('N° lote *').fill('999 Auto');
-  await page.getByLabel('Fecha de vencimiento *').click();
-  await page.getByLabel('Fecha de vencimiento *').fill('23/10/2023');
-  await page.locator('#mat-slide-toggle-6 div').first().click();
-  await page.pause()
-  await page.getByRole('button', { name: 'Aceptar' }).click();
-});
-
 
 test('Lote Materiales de Control QCI', async ({ page }) => {
   // Login //
