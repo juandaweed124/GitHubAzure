@@ -1,10 +1,9 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="23.394487">
-<testsuite name="pruebaValiQC.spec.ts" timestamp="2024-05-13T22:09:32.455Z" hostname="chromium" tests="1" failures="0" skipped="0" time="20.667" errors="0">
-<testcase name="Automatizacion completa ValiQC" classname="pruebaValiQC.spec.ts" time="20.667">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="61.641003999999995">
+<testsuite name="pruebaValiQC.spec.ts" timestamp="2024-05-24T21:34:16.476Z" hostname="chromium" tests="1" failures="0" skipped="0" time="56.136" errors="0">
+<testcase name="Consumo de excel" classname="pruebaValiQC.spec.ts" time="56.136">
 <system-out>
-<![CDATA[d3UAEYaD
-
-[[ATTACHMENT|..\test-results\pruebaValiQC-Automatizacion-completa-ValiQC-chromium\video.webm]]
+<![CDATA[
+[[ATTACHMENT|..\test-results\pruebaValiQC-Consumo-de-excel-chromium\video.webm]]
 ]]>
 </system-out>
 </testcase>
