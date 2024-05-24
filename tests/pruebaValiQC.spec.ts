@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from './pageobjects/LoginPage';
 import { waitForDebugger } from 'inspector';
-import { parse } from 'path';
+import path, { parse } from 'path';
 import { LoginUser } from './pageobjects/LoginUser';
 import { LoteManager } from './pageobjects/LoteManager';
+import { getExcelData, readExcel } from './pageobjects/readExcel';
 
 // Login Vali QC //
 test('Login ValiQC', async ({ page }) => {
@@ -52,18 +53,48 @@ test('Automatizacion completa ValiQC', async ({ page }) => {
   await page.getByRole('button', { name: 'Aceptar' }).click();
     // Finaliza Crear Analito 
 
-    // Inicia Crear Lote
-    const loteManager = new LoteManager(page); // Suponiendo que "page" es tu objeto de página de Playwright
+  /*  // Inicia Crear Lote
+    const loteManager = new LoteManager(page);
     const nombreLote1 = await loteManager.generarNombreLote();
     console.log(nombreLote1); // Output: Ejemplo de nombre aleatorio: oQzP3LwS
     await loteManager.seleccionarFechaActual();
+    await page.pause()
+   // Activar el botón toggle utilizando el XPath proporcionado
+   await page.locator('#mat-slide-toggle-6 label').first().click();
 
     await page.getByRole('button', { name: 'Aceptar' }).click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(1000);*/
+    // Termina Crear Lote 
 });
   
-  // Termina Crear Lote 
+  
+  test('Crear Lote', async ({ page }) => {
+    await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+      // Realizar el inicio de sesión
+    const LoginUs = new LoginUser(page);
+    await page.waitForTimeout(2000);
+    const loginPage = new LoginPage(page);
+    await loginPage.clickOnSedeButton();
+    await page.waitForTimeout(1000);
+    await loginPage.clickOnSedeNombre();
+    await page.waitForTimeout(500);
+    await loginPage.clickOnLogin();
+      // Finalizar el inicio de sesión
+      await page.locator('a').filter({ hasText: 'Control Calidad Interno' }).click();
+      await page.locator('a').filter({ hasText: /^Configuración$/ }).nth(1).click();
+      // Inicia Crear Lote
+      const loteManager = new LoteManager(page);
+      const nombreLote1 = await loteManager.generarNombreLote();
+      console.log(nombreLote1); // Output: Ejemplo de nombre aleatorio: oQzP3LwS
+      await loteManager.seleccionarFechaActual();
+      await page.pause()
+     // Activar el botón toggle
+     await page.locator('#mat-slide-toggle-6 label').first().click();
+      await page.getByRole('button', { name: 'Aceptar' }).click();
+      await page.waitForTimeout(1000);
+  });
 
+  
 
   test('Lote Materiales de Control QCI', async ({ page }) => {
     await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
@@ -95,6 +126,58 @@ test('Automatizacion completa ValiQC', async ({ page }) => {
   });
 
 
+  test('Consumo de excel', async ({ page }) => {
+    const excelFileName = 'ExcelPrueba.xlsx';
+    const excelFilePath = path.join(__dirname, '.', 'pageobjects', excelFileName);
+
+    const { descripcion, nivel, dropdownValue } = await getExcelData(excelFilePath)
+    
+  await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+
+  // Realizar el inicio de sesión
+  const LoginUs = new LoginUser(page);
+  await page.waitForTimeout(2000);
+  const loginPage = new LoginPage(page);
+  await loginPage.clickOnSedeButton();
+  await page.waitForTimeout(1000);
+  await loginPage.clickOnSedeNombre();
+  await page.waitForTimeout(500);
+  await loginPage.clickOnLogin();
+  // Finalizar el inicio de sesión
+
+  // Crear Analito Cuanti
+  await page.locator('a').filter({ hasText: 'Control Calidad Interno' }).click();
+  await page.locator('a').filter({ hasText: /^Configuración$/ }).nth(1).click();
+  await page.getByText('Analítos').first().click();
+  await page.getByText('Crear').click();
+
+  // Ingresar datos desde Excel
+  await page.locator('#desAnalytes').click();
+  await page.locator('#desAnalytes').fill(descripcion);
+  await page.getByLabel('Nivel *').click();
+  await page.getByLabel('Nivel *').fill(nivel);
+
+  // Seleccionar valor de la lista desplegable de programas
+    await page.locator('#mat-input-1').click();
+    await page.waitForSelector('.mat-option-text'); // Espera que las opciones del dropdown estén visibles
+    const options = await page.$$('.mat-option-text');
+    for (const option of options) {
+        const text = await option.textContent();
+        if (text && text.trim() === dropdownValue) {
+            await option.click();
+            break;
+        }
+    }
+    await page.waitForTimeout(1000);
+    await page.getByLabel('Tipo resultado *').locator('div').nth(1).click();
+    await page.getByText('Cuantitativo', { exact: true }).click();
+    await page.locator('#mat-slide-toggle-6 label').first().click();
+     await page.getByRole('button', { name: 'Aceptar' }).click();
+     await page.waitForTimeout(1000);
+});
+
+
+  
 /*
 test('Crear Analito Cuali QCI', async ({ page }) => {
   await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
