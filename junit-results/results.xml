@@ -1,9 +1,34 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="61.641003999999995">
-<testsuite name="pruebaValiQC.spec.ts" timestamp="2024-05-24T21:34:16.476Z" hostname="chromium" tests="1" failures="0" skipped="0" time="56.136" errors="0">
-<testcase name="Consumo de excel" classname="pruebaValiQC.spec.ts" time="56.136">
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="33.78954699999999">
+<testsuite name="pruebaValiQC.spec.ts" timestamp="2025-01-29T22:56:29.955Z" hostname="chromium" tests="1" failures="1" skipped="0" time="30.841" errors="0">
+<testcase name="Automatizacion completa ValiQC" classname="pruebaValiQC.spec.ts" time="30.841">
+<failure message="pruebaValiQC.spec.ts:26:5 Automatizacion completa ValiQC" type="FAILURE">
+<![CDATA[  [chromium] › pruebaValiQC.spec.ts:26:5 › Automatizacion completa ValiQC ──────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('a').filter({ hasText: 'Control Calidad Interno' })
+
+
+      40 |
+      41 |     // Crear Analito Cuanti
+    > 42 |   await page.locator('a').filter({ hasText: 'Control Calidad Interno' }).click();
+         |                                                                          ^
+      43 |   await page.locator('a').filter({ hasText: /^Configuración$/ }).nth(1).click();
+      44 |   await page.getByText('Analítos').first().click();
+      45 |   await page.getByText('Crear').click();
+
+        at C:\ws\stream\GitHubAzure\GitHubAzure\tests\pruebaValiQC.spec.ts:42:74
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\pruebaValiQC-Automatizacion-completa-ValiQC-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|..\test-results\pruebaValiQC-Consumo-de-excel-chromium\video.webm]]
+[[ATTACHMENT|..\test-results\pruebaValiQC-Automatizacion-completa-ValiQC-chromium\video.webm]]
 ]]>
 </system-out>
 </testcase>

@@ -33,6 +33,8 @@ test('Automatizacion completa ValiQC', async ({ page }) => {
   await page.waitForTimeout(1000);
   await loginPage.clickOnSedeNombre();
   await page.waitForTimeout(500);
+  await loginPage.clickOnCaptcha(page);
+  await page.waitForTimeout(500);
   await loginPage.clickOnLogin();
     // Finalizar el inicio de sesión
 
@@ -53,8 +55,8 @@ test('Automatizacion completa ValiQC', async ({ page }) => {
   await page.getByRole('button', { name: 'Aceptar' }).click();
     // Finaliza Crear Analito 
 
-  /*  // Inicia Crear Lote
-    const loteManager = new LoteManager(page);
+    // Inicia Crear Lote
+    const loteManager = new LoteManager(page); // Suponiendo que "page" es tu objeto de página de Playwright
     const nombreLote1 = await loteManager.generarNombreLote();
     console.log(nombreLote1); // Output: Ejemplo de nombre aleatorio: oQzP3LwS
     await loteManager.seleccionarFechaActual();
@@ -63,7 +65,7 @@ test('Automatizacion completa ValiQC', async ({ page }) => {
    await page.locator('#mat-slide-toggle-6 label').first().click();
 
     await page.getByRole('button', { name: 'Aceptar' }).click();
-    await page.waitForTimeout(1000);*/
+    await page.waitForTimeout(1000);
     // Termina Crear Lote 
 });
   
