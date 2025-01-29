@@ -32,6 +32,8 @@ test('Automatizacion completa ValiQC', async ({ page }) => {
   await page.waitForTimeout(1000);
   await loginPage.clickOnSedeNombre();
   await page.waitForTimeout(500);
+  await loginPage.clickOnCaptcha(page);
+  await page.waitForTimeout(500);
   await loginPage.clickOnLogin();
     // Finalizar el inicio de sesión
 
