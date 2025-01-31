@@ -96,7 +96,7 @@ test('Automatizacion completa ValiQC', async ({ page }) => {
       await page.waitForTimeout(1000);
   });
 
-  
+
 
   test('Lote Materiales de Control QCI', async ({ page }) => {
     await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');

@@ -16,7 +16,6 @@ export class LoginPage{
         this.passwordTextbox = page.getByRole('textbox', {name:'Contraseña'});
         this.passwordTextbox.fill(this.contraseña);
         this.Captcha = page.getByLabel('No soy un robot');
-       
     }
 
     async fillPassword(Password:string){
@@ -42,11 +41,11 @@ export class LoginPage{
         // Esperar y seleccionar el iframe del reCAPTCHA
         const iframes = await page.frames();
         const captchaIframe = iframes.find(frame => frame.url().includes('recaptcha/api2/anchor'));
-        
+    
         if (!captchaIframe) {
             throw new Error('No se encontró el iframe del reCAPTCHA.');
         }
-        
+    
         // Esperar a que el checkbox del CAPTCHA esté visible dentro del iframe
         const captchaCheckbox = captchaIframe.locator('#recaptcha-anchor');
         await captchaCheckbox.waitFor();
@@ -54,5 +53,13 @@ export class LoginPage{
         // Mover el ratón hacia el CAPTCHA y hacer clic
         await captchaCheckbox.hover();
         await captchaCheckbox.click();
+    
+        // Verificar si el checkbox se marcó
+        await page.waitForTimeout(30000); // Espera 2 segundos
+        const isChecked = await captchaCheckbox.isChecked();
+    
+        if (!isChecked) {
+            throw new Error('El CAPTCHA no se marcó correctamente.');
+        }
     }
 }

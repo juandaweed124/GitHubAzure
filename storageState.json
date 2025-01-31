@@ -1,0 +1,38 @@
+{
+  "cookies": [
+    {
+      "name": "_GRECAPTCHA",
+      "value": "09AGVEItcJtCNeOEc5ZTQ_a34tazAPDOtdUiVpkiCExivV7rzzMo0x86X_9cR2RmkBWhn2uA12KwuFyiK6l0bKrCo",
+      "domain": "www.google.com",
+      "path": "/recaptcha",
+      "expires": 1753909727.192125,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://valiqc-frontend-general-pruebas.azurewebsites.net",
+      "localStorage": [
+        {
+          "name": "_grecaptcha",
+          "value": "09AGVEItf-iC9L4uwcRYvD2W8FZpNhJ75Xv4JXAigrlS8Nnx1E0lul0DFbGHDLV5teLesHcSXktV_VQHTVrDciD7G92mgIqAHysLQ7bPq8FlqLytNclk85JxtSoq8wDPXo"
+        }
+      ]
+    },
+    {
+      "origin": "https://www.google.com",
+      "localStorage": [
+        {
+          "name": "rc::a",
+          "value": "dTJia25leWZ3emg0"
+        },
+        {
+          "name": "rc::f",
+          "value": "0aAMcGX0T8oB41Dn8H580je0rnP1sGeDk8f2qxEB-rLW1-_exHl8KtP5hrBBa0hDuOi7FNIhU"
+        }
+      ]
+    }
+  ]
+}
