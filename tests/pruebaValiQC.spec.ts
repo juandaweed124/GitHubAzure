@@ -7,17 +7,56 @@ import { LoteManager } from './pageobjects/LoteManager';
 import { getExcelData, readExcel } from './pageobjects/readExcel';
 
 // Login Vali QC //
-test('Login ValiQC', async ({ page }) => {
+
+
+//Test nueva version
+test('Crear unidad de medida y seccion', async ({ page }) => {
   await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
-    // Realizar el inicio de sesión
-    const LoginUs = new LoginUser(page);
-    await page.waitForTimeout(2000);
-    const loginPage = new LoginPage(page);
-    await loginPage.clickOnSedeButton();
-    await page.waitForTimeout(1000);
-    await loginPage.clickOnSedeNombre();
-    await page.waitForTimeout(500);
-    await loginPage.clickOnLogin();
+
+  // Aceptar términos o alertas (si aplica)
+  await page.getByRole('button', { name: 'Aceptar' }).click();
+  await page.waitForTimeout(2000);
+
+  // Instancia de la clase LoginUser para llenar el usuario
+  const loginUser = new LoginUser(page);
+  await loginUser.fillUsername(); // <- Asegurarse de llenar el usuario antes de continuar
+  const loginPage = new LoginPage(page);
+  await loginPage.clickOnSedeButton();
+  await page.waitForTimeout(1000);
+  await loginPage.clickOnSedeNombre();
+  await page.waitForTimeout(500);
+  
+  // Manejo del CAPTCHA
+  await page.pause();
+  await loginPage.clickOnCaptcha(page);
+  await page.waitForTimeout(1000);
+
+
+  // Hacer clic en el botón de Login
+  await loginPage.clickOnLogin();
+
+  await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+  await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+  await page.getByRole('button', { name: 'Configuración Unidades de' }).click();
+  await page.getByRole('button', { name: 'Crear' }).click();
+  await page.getByLabel('Unidad').press('CapsLock');
+  await page.getByLabel('Unidad').fill('U');
+  await page.getByLabel('Unidad').press('CapsLock');
+  await page.getByLabel('Unidad').fill('Unidad de medida automatizada 1');
+  await page.locator('#mat-mdc-slide-toggle-6-button').click();
+  await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+  await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+  await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+  await page.getByRole('button', { name: 'Configuración Unidades de' }).click();
+  await page.getByRole('button', { name: 'Crear' }).click();
+  await page.getByLabel('Sección').press('CapsLock');
+  await page.getByLabel('Sección').fill('S');
+  await page.getByLabel('Sección').press('CapsLock');
+  await page.getByLabel('Sección').fill('Seccion automatizada 1');
+  await page.getByText('Constante Z', { exact: true }).click();
+  await page.getByLabel('Constante Z').fill('3');
+  await page.locator('#mat-mdc-slide-toggle-18-button').click();
+  await page.getByRole('button', { name: 'Guardar' }).click();
 });
 
 

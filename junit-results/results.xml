@@ -1,83 +1,34 @@
-<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="13.957835">
-<testsuite name="pruebaValiQC.spec.ts" timestamp="2025-01-31T22:20:44.552Z" hostname="chromium" tests="1" failures="1" skipped="0" time="10.132" errors="0">
-<testcase name="Login con CAPTCHA resuelto" classname="pruebaValiQC.spec.ts" time="10.132">
-<failure message="pruebaValiQC.spec.ts:11:5 Login con CAPTCHA resuelto" type="FAILURE">
-<![CDATA[  [chromium] › pruebaValiQC.spec.ts:11:5 › Login con CAPTCHA resuelto ──────────────────────────────
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="15.936783000000002">
+<testsuite name="pruebaValiQC.spec.ts" timestamp="2025-03-17T22:11:55.133Z" hostname="chromium" tests="1" failures="1" skipped="0" time="14.183" errors="0">
+<testcase name="Ejecucion sin login" classname="pruebaValiQC.spec.ts" time="14.183">
+<failure message="pruebaValiQC.spec.ts:10:5 Ejecucion sin login" type="FAILURE">
+<![CDATA[  [chromium] › pruebaValiQC.spec.ts:10:5 › Ejecucion sin login ─────────────────────────────────────
 
-    Error: locator.getAttribute: Target page, context or browser has been closed
+    Error: locator.click: Target page, context or browser has been closed
     Call log:
-      - waiting for locator('div[data-sitekey]')
+      - waiting for getByRole('button', { name: 'Control Calidad Interno' })
 
 
-       at captchaUtils.ts:14
+      12 |     await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/panel/inicio'); // Ir directamente al dashboard sin login
+      13 |     await page.waitForTimeout(2000);
+    > 14 |     await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+         |                                                                         ^
+      15 |     await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+      16 |     await page.getByRole('button', { name: 'Configuración Unidades de' }).click();
+      17 |     await page.getByRole('button', { name: 'Crear' }).click();
 
-      12 |       method: 'recaptcha', // Si es un reCAPTCHA, usa 'recaptcha'. Para otros, revisa la documentación.
-      13 |       site_url: page.url(), // URL de la página donde está el CAPTCHA
-    > 14 |       site_key: await page.locator('div[data-sitekey]').getAttribute('data-sitekey')  // Obtén la clave del sitio desde la página
-         |                                                         ^
-      15 |     });
-      16 |
-      17 |     if (response.data.status === 'success') {
-
-        at resolveCaptcha (c:\ws\stream\GitHubAzure\GitHubAzure\tests\captchaUtils.ts:14:57)
-        at solveCaptcha (c:\ws\stream\GitHubAzure\GitHubAzure\tests\captchaUtils.ts:31:33)
-        at c:\ws\stream\GitHubAzure\GitHubAzure\tests\pruebaValiQC.spec.ts:24:23
+        at C:\ws\stream\GitHubAzure\GitHubAzure\tests\pruebaValiQC.spec.ts:14:73
 
     attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
-    test-results\pruebaValiQC-Login-con-CAPTCHA-resuelto-chromium\video.webm
+    test-results\pruebaValiQC-Ejecucion-sin-login-chromium\video.webm
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|..\test-results\pruebaValiQC-Login-con-CAPTCHA-resuelto-chromium\video.webm]]
+[[ATTACHMENT|..\test-results\pruebaValiQC-Ejecucion-sin-login-chromium\video.webm]]
 ]]>
 </system-out>
-<system-err>
-<![CDATA[Error al resolver el CAPTCHA: locator.getAttribute: Target page, context or browser has been closed
-Call log:
-  [2m- waiting for locator('div[data-sitekey]')[22m
-
-    at resolveCaptcha [90m(c:\ws\stream\GitHubAzure\GitHubAzure\[39mtests\captchaUtils.ts:14:57[90m)[39m
-    at solveCaptcha [90m(c:\ws\stream\GitHubAzure\GitHubAzure\[39mtests\captchaUtils.ts:31:33[90m)[39m
-    at [90mc:\ws\stream\GitHubAzure\GitHubAzure\[39mtests\pruebaValiQC.spec.ts:24:23 {
-  [[32mSymbol(step)[39m]: {
-    stepId: [32m'pw:api@15'[39m,
-    location: {
-      file: [32m'c:\\ws\\stream\\GitHubAzure\\GitHubAzure\\tests\\captchaUtils.ts'[39m,
-      line: [33m14[39m,
-      column: [33m57[39m,
-      function: [32m'resolveCaptcha'[39m
-    },
-    category: [32m'pw:api'[39m,
-    title: [32m'locator.getAttribute(div[data-sitekey])'[39m,
-    apiName: [32m'locator.getAttribute'[39m,
-    params: {
-      selector: [32m'div[data-sitekey]'[39m,
-      name: [32m'data-sitekey'[39m,
-      strict: [33mtrue[39m
-    },
-    wallTime: [33m1738362053761[39m,
-    boxedStack: [90mundefined[39m,
-    steps: [],
-    complete: [36m[Function: complete][39m,
-    endWallTime: [33m1738362056759[39m,
-    error: {
-      message: [32m'Error: locator.getAttribute: Target page, context or browser has been closed\n'[39m +
-        [32m'Call log:\n'[39m +
-        [32m"  \x1B[2m- waiting for locator('div[data-sitekey]')\x1B[22m\n"[39m,
-      stack: [32m'Error: locator.getAttribute: Target page, context or browser has been closed\n'[39m +
-        [32m'Call log:\n'[39m +
-        [32m"  \x1B[2m- waiting for locator('div[data-sitekey]')\x1B[22m\n"[39m +
-        [32m'\n'[39m +
-        [32m'    at resolveCaptcha (c:\\ws\\stream\\GitHubAzure\\GitHubAzure\\tests\\captchaUtils.ts:14:57)\n'[39m +
-        [32m'    at solveCaptcha (c:\\ws\\stream\\GitHubAzure\\GitHubAzure\\tests\\captchaUtils.ts:31:33)\n'[39m +
-        [32m'    at c:\\ws\\stream\\GitHubAzure\\GitHubAzure\\tests\\pruebaValiQC.spec.ts:24:23'[39m
-    }
-  }
-}
-]]>
-</system-err>
 </testcase>
 </testsuite>
 </testsuites>
