@@ -55,7 +55,7 @@ export class LoginPage{
         await captchaCheckbox.click();
     
         // Verificar si el checkbox se marcó
-        await page.waitForTimeout(30000); // Espera 2 segundos
+        await page.waitForTimeout(2000); // Espera 2 segundos
         const isChecked = await captchaCheckbox.isChecked();
     
         if (!isChecked) {

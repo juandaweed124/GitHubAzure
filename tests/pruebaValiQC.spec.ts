@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { chromium, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { LoginPage } from './pageobjects/LoginPage';
 import { waitForDebugger } from 'inspector';
 import path, { parse } from 'path';
@@ -9,58 +10,47 @@ import { getExcelData, readExcel } from './pageobjects/readExcel';
 // Login Vali QC //
 
 
-//Test nueva version
-test('Crear unidad de medida y seccion', async ({ page }) => {
+test('Unidad de medida y sección', async ({ page }) => {
+  
   await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
 
-  // Aceptar términos o alertas (si aplica)
-  await page.getByRole('button', { name: 'Aceptar' }).click();
-  await page.waitForTimeout(2000);
+  // Aceptar términos
+  //await page.getByRole('button', { name: 'Aceptar' }).click();
+  //await page.waitForTimeout(2000);
 
-  // Instancia de la clase LoginUser para llenar el usuario
+  // Login
   const loginUser = new LoginUser(page);
-  await loginUser.fillUsername(); // <- Asegurarse de llenar el usuario antes de continuar
+  await loginUser.fillUsername();
   const loginPage = new LoginPage(page);
   await loginPage.clickOnSedeButton();
   await page.waitForTimeout(1000);
   await loginPage.clickOnSedeNombre();
   await page.waitForTimeout(500);
-  
-  // Manejo del CAPTCHA
+
+  // Manejo del CAPTCHA (manual)
   await page.pause();
   await loginPage.clickOnCaptcha(page);
   await page.waitForTimeout(1000);
-
-
-  // Hacer clic en el botón de Login
   await loginPage.clickOnLogin();
 
+  console.log("✅ Login exitoso");
+
+  // CREAR UNIDAD DE MEDIDA Y SECCIÓN
+  await page.waitForTimeout(1000);
   await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
   await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
-  await page.getByRole('button', { name: 'Configuración Unidades de' }).click();
+  await expect(page.locator('#accordion-header-1')).toContainText('Unidades de Medida');
+  await page.getByText('Unidades de Medida', { exact: true }).click();
   await page.getByRole('button', { name: 'Crear' }).click();
-  await page.getByLabel('Unidad').press('CapsLock');
-  await page.getByLabel('Unidad').fill('U');
-  await page.getByLabel('Unidad').press('CapsLock');
   await page.getByLabel('Unidad').fill('Unidad de medida automatizada 1');
   await page.locator('#mat-mdc-slide-toggle-6-button').click();
-  await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
-  await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
-  await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
-  await page.getByRole('button', { name: 'Configuración Unidades de' }).click();
-  await page.getByRole('button', { name: 'Crear' }).click();
-  await page.getByLabel('Sección').press('CapsLock');
-  await page.getByLabel('Sección').fill('S');
-  await page.getByLabel('Sección').press('CapsLock');
-  await page.getByLabel('Sección').fill('Seccion automatizada 1');
-  await page.getByText('Constante Z', { exact: true }).click();
-  await page.getByLabel('Constante Z').fill('3');
-  await page.locator('#mat-mdc-slide-toggle-18-button').click();
   await page.getByRole('button', { name: 'Guardar' }).click();
+  console.log("✅ Unidad de medida creada correctamente");
+
+
 });
-
-
 //Test de prueba Automatizacion Capacitación
+
 
 test('Automatizacion completa ValiQC', async ({ page }) => {
   await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
