@@ -1,31 +1,34 @@
-<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="28.343400999999954">
-<testsuite name="pruebaValiQC.spec.ts" timestamp="2025-03-22T22:53:33.157Z" hostname="chromium" tests="1" failures="1" skipped="0" time="25.933" errors="0">
-<testcase name="Unidad de medida y sección" classname="pruebaValiQC.spec.ts" time="25.933">
-<failure message="pruebaValiQC.spec.ts:13:5 Unidad de medida y sección" type="FAILURE">
-<![CDATA[  [chromium] › pruebaValiQC.spec.ts:13:5 › Unidad de medida y sección ──────────────────────────────
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="33.7352209999999">
+<testsuite name="pruebaValiQC.spec.ts" timestamp="2025-04-01T23:48:00.050Z" hostname="chromium" tests="1" failures="1" skipped="0" time="30.165" errors="0">
+<testcase name="Crear Analito" classname="pruebaValiQC.spec.ts" time="30.165">
+<failure message="pruebaValiQC.spec.ts:81:5 Crear Analito" type="FAILURE">
+<![CDATA[  [chromium] › pruebaValiQC.spec.ts:81:5 › Crear Analito ───────────────────────────────────────────
 
-    Error: locator.waitFor: Target page, context or browser has been closed
+    Test timeout of 30000ms exceeded.
 
-       at pageobjects\LoginPage.ts:51
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#mat-mdc-form-field-label-76').getByText('Sección')
 
-      49 |         // Esperar a que el checkbox del CAPTCHA esté visible dentro del iframe
-      50 |         const captchaCheckbox = captchaIframe.locator('#recaptcha-anchor');
-    > 51 |         await captchaCheckbox.waitFor();
-         |                               ^
-      52 |         
-      53 |         // Mover el ratón hacia el CAPTCHA y hacer clic
-      54 |         await captchaCheckbox.hover();
-        at LoginPage.clickOnCaptcha (C:\Automatizacion\GitHubAzure\tests\pageobjects\LoginPage.ts:51:31)
-        at C:\Automatizacion\GitHubAzure\tests\pruebaValiQC.spec.ts:32:3
+
+      103 |   await page.getByRole('spinbutton', { name: 'Nivel' }).click();
+      104 |   await page.getByRole('spinbutton', { name: 'Nivel' }).fill('3');
+    > 105 |   await page.locator('#mat-mdc-form-field-label-76').getByText('Sección').click();
+          |                                                                           ^
+      106 |   await page.locator('#mat-option-90').getByText('Seccion Automatizada 1').click();
+      107 |   await page.locator('#mat-select-value-19').click();
+      108 |   await page.getByRole('option', { name: 'Cuantitativo' }).click();
+        at C:\Automatizacion\GitHubAzure\tests\pruebaValiQC.spec.ts:105:75
 
     attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
-    test-results\pruebaValiQC-Unidad-de-medida-y-sección-chromium\video.webm
+    test-results\pruebaValiQC-Crear-Analito-chromium\video.webm
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
-<![CDATA[
-[[ATTACHMENT|..\test-results\pruebaValiQC-Unidad-de-medida-y-sección-chromium\video.webm]]
+<![CDATA[✅ Login exitoso
+
+[[ATTACHMENT|..\test-results\pruebaValiQC-Crear-Analito-chromium\video.webm]]
 ]]>
 </system-out>
 </testcase>

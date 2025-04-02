@@ -23,7 +23,8 @@ export class LoteManager{
         await this.page.getByText('Crear').click();
 
         // Rellenar el campo N° lote con el nombre generado
-        await this.page.getByLabel('N° lote *').fill(nombreLote);
+        await this.page.getByLabel('No° lote').fill(nombreLote);
+        
 
         return nombreLote;
     }
