@@ -1,0 +1,289 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Crear Analito
+- Location: C:\Automatizacion\GitHubAzure\tests\pruebaValiQC.spec.ts:81:5
+
+# Error details
+
+```
+Error: locator.click: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for locator('#mat-option-54').getByText('Seccion Automatizada 1')
+
+    at C:\Automatizacion\GitHubAzure\tests\pruebaValiQC.spec.ts:106:76
+```
+
+# Page snapshot
+
+```yaml
+- dialog:
+  - heading "Crear" [level=1]
+  - text: Nombre
+  - textbox "Nombre": Analito automatizado 2
+  - text: Nivel
+  - spinbutton "Nivel": "3"
+  - text: Sección
+  - combobox "Sección" [expanded]
+  - text: Tipo resultado
+  - combobox "Tipo resultado --": "--"
+  - text: Estado
+  - switch
+  - button "Cerrar"
+  - button "Guardar"
+  - listbox "Sección":
+    - option "Quimica"
+    - option "Hematologia"
+    - option "Prueba"
+    - option "Prueba 2"
+    - option "Biología Molecular"
+    - option "Especiales"
+    - option "Infecciosas"
+    - option "Ingles"
+    - option "Microbiología"
+    - option "Pruebaqa"
+    - option "Marcadores"
+    - option "Inmunología"
+    - option "Inmunología"
+    - option "Seccionlog01"
+    - option "Seccion Jorge"
+    - option "Sección 21"
+    - option "Microbiologia Adn"
+    - option "Blood"
+    - option "Seccion Juan Qa Modif"
+    - option "Seccion Seguridad"
+    - option "Seccion Duplicar"
+    - option "Seccion Noviembre"
+    - option "Seccion Septiembre Final"
+    - option "Seccion Mani"
+    - option "Seccion Desde Cero"
+    - option "Seccion Regresion Full Octubre"
+    - option "Seccion Validar Duplicar Lote"
+    - option "Seccion Automatizada 1"
+    - option "Seccion Automatizada 1"
+    - option "Quimica Modif"
+    - option "Seccion Automatizada 1"
+    - option "Seccion Automatizada 1"
+    - option "Seccion Diciembre 2024"
+    - option "Seccion Enero 2025"
+    - option "Seccion Juan Simulacion"
+    - option "Prueba Video Modif"
+    - option "Seccion Nuevo Diseño Modif"
+    - option "Seccion Front Modif"
+    - option "Seccion Automatizada 1"
+    - option "Seccion Automatizada 1"
+    - option "Seccion Automatizada 1"
+    - option "Seccion Automatizada 1"
+```
+
+# Test source
+
+```ts
+   6 | import { LoginUser } from './pageobjects/LoginUser';
+   7 | import { LoteManager } from './pageobjects/LoteManager';
+   8 | import { getExcelData, readExcel } from './pageobjects/readExcel';
+   9 |
+   10 | // Login Vali QC //
+   11 |
+   12 |
+   13 | test('Crear Unidad de medida', async ({ page }) => {
+   14 |   
+   15 |   await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+   16 |   // Login
+   17 |   const loginUser = new LoginUser(page);
+   18 |   await loginUser.fillUsername();
+   19 |   const loginPage = new LoginPage(page);
+   20 |   await loginPage.clickOnSedeButton();
+   21 |   await page.waitForTimeout(500);
+   22 |   await loginPage.clickOnSedeNombre();
+   23 |   await page.waitForTimeout(500);
+   24 |   await loginPage.clickOnLogin();
+   25 |
+   26 |   console.log("✅ Login exitoso");
+   27 |
+   28 |   // CREAR UNIDAD DE MEDIDA Y SECCIÓN
+   29 |   await page.waitForTimeout(1000);
+   30 |   await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+   31 |   await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+   32 |   await expect(page.locator('#accordion-header-1')).toContainText('Unidades de Medida');
+   33 |   await page.getByText('Unidades de Medida', { exact: true }).click();
+   34 |   await page.getByRole('button', { name: 'Crear' }).click();
+   35 |   await page.getByLabel('Unidad').fill('Unidad de medida automatizada 1');
+   36 |   await page.locator('#mat-mdc-slide-toggle-6-button').click();
+   37 |   await page.getByRole('button', { name: 'Guardar' }).click();
+   38 |   await expect(page.getByRole('alert', { name: 'Registro creado' })).toBeVisible();
+   39 |   await page.waitForTimeout(500);
+   40 |   console.log("✅ Unidad de medida creada correctamente");
+   41 |
+   42 |
+   43 | });
+   44 | //Test de prueba Automatizacion Capacitación
+   45 |
+   46 |
+   47 | test('Crear Seccion', async ({ page }) => {
+   48 |   await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+   49 |   // Login
+   50 |   const loginUser = new LoginUser(page);
+   51 |   await loginUser.fillUsername();
+   52 |   const loginPage = new LoginPage(page);
+   53 |   await loginPage.clickOnSedeButton();
+   54 |   await page.waitForTimeout(500);
+   55 |   await loginPage.clickOnSedeNombre();
+   56 |   await page.waitForTimeout(500);
+   57 |   await loginPage.clickOnLogin();
+   58 |
+   59 |   console.log("✅ Login exitoso");
+   60 |
+   61 | //Crear seccion
+   62 |   await page.waitForTimeout(1000);
+   63 |   await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+   64 |   await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+   65 |   await page.getByText('Sección').click();
+   66 |   await page.getByRole('button', { name: 'Crear' }).click();
+   67 |   await page.getByRole('textbox', { name: 'Sección' }).click();
+   68 |   await page.getByRole('textbox', { name: 'Sección' }).fill('Seccion automatizada 1');
+   69 |   await page.getByText('Constante Z', { exact: true }).click();
+   70 |   await page.getByRole('textbox', { name: 'Constante Z' }).fill('3');
+   71 |   await page.locator('#mat-mdc-slide-toggle-6-button').click();
+   72 |   await page.getByRole('button', { name: 'Guardar' }).click();
+   73 |   await expect(page.getByRole('alert', { name: 'Registro creado' })).toBeVisible();
+   74 |   
+   75 |   console.log("✅ Sección creada exitosamente");
+   76 |   await page.waitForTimeout(1000);
+   77 |
+   78 | });
+   79 |   
+   80 |   
+   81 | test('Crear Analito', async ({ page }) => {
+   82 |   await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+   83 |   // Login
+   84 |   const loginUser = new LoginUser(page);
+   85 |   await loginUser.fillUsername();
+   86 |   const loginPage = new LoginPage(page);
+   87 |   await loginPage.clickOnSedeButton();
+   88 |   await page.waitForTimeout(500);
+   89 |   await loginPage.clickOnSedeNombre();
+   90 |   await page.waitForTimeout(500);
+   91 |   await loginPage.clickOnLogin();
+   92 |
+   93 |   console.log("✅ Login exitoso");
+   94 |
+   95 | //Crear Analito
+   96 |   await page.waitForTimeout(1000);
+   97 |   await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+   98 |   await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+   99 |   await page.getByText('Analítos').nth(0).click();
+  100 |   await page.getByRole('button', { name: 'Crear' }).click();
+  101 |   await page.getByRole('textbox', { name: 'Nombre' }).click();
+  102 |   await page.getByRole('textbox', { name: 'Nombre' }).fill('Analito automatizado 2');
+  103 |   await page.getByRole('spinbutton', { name: 'Nivel' }).click();
+  104 |   await page.getByRole('spinbutton', { name: 'Nivel' }).fill('3');
+  105 |     await page.locator('#mat-mdc-form-field-label-14').getByText('Sección').click();
+> 106 |   await page.locator('#mat-option-54').getByText('Seccion Automatizada 1').click();
+      |                                                                            ^ Error: locator.click: Test timeout of 30000ms exceeded.
+  107 |   await page.locator('#mat-select-value-5').click();
+  108 |   await page.getByText('Cuantitativo').click();
+  109 |   await page.locator('#mat-mdc-slide-toggle-6-button').click();
+  110 |   await page.getByRole('button', { name: 'Guardar' }).click();
+  111 |   await expect(page.getByRole('alert', { name: 'Registro creado' })).toBeVisible();
+  112 |
+  113 |   
+  114 |   console.log("✅ Analito creado exitosamente");
+  115 |   await page.waitForTimeout(1000);
+  116 |   await page.close();
+  117 | });
+  118 |
+  119 |
+  120 |   test('Crear Lote', async ({ page }) => {
+  121 |     await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+  122 |       // Realizar el inicio de sesión
+  123 |     // Login
+  124 |   const loginUser = new LoginUser(page);
+  125 |   await loginUser.fillUsername();
+  126 |   const loginPage = new LoginPage(page);
+  127 |   await loginPage.clickOnSedeButton();
+  128 |   await page.waitForTimeout(500);
+  129 |   await loginPage.clickOnSedeNombre();
+  130 |   await page.waitForTimeout(500);
+  131 |   await loginPage.clickOnLogin();
+  132 |       // Finalizar el inicio de sesión
+  133 |   await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+  134 |   await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+  135 |   await expect(page.locator('#accordion-header-1')).toContainText('Lotes');
+  136 |       // Inicia Crear Lote
+  137 |       const loteManager = new LoteManager(page);
+  138 |       const nombreLote1 = await loteManager.generarNombreLote();
+  139 |       console.log(nombreLote1); // Output: Ejemplo de nombre aleatorio: oQzP3LwS
+  140 |       await loteManager.seleccionarFechaActual();
+  141 |      // Activar el botón toggle
+  142 |      await page.locator('#mat-mdc-slide-toggle-6-button').first().click();
+  143 |       await page.getByRole('button', { name: 'Guardar' }).click();
+  144 |       await expect(page.getByRole('alert', { name: 'Registro creado' })).toBeVisible();
+  145 |       await page.waitForTimeout(1000);
+  146 |   });
+  147 |
+  148 |
+  149 |
+  150 |   test('Lote Materiales de Control QCI', async ({ page }) => {
+  151 |     await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+  152 |     // Realizar el inicio de sesión
+  153 |   // Login
+  154 | const loginUser = new LoginUser(page);
+  155 | await loginUser.fillUsername();
+  156 | const loginPage = new LoginPage(page);
+  157 | await loginPage.clickOnSedeButton();
+  158 | await page.waitForTimeout(500);
+  159 | await loginPage.clickOnSedeNombre();
+  160 | await page.waitForTimeout(500);
+  161 | await loginPage.clickOnLogin();
+  162 |     // Finalizar el inicio de sesión
+  163 |
+  164 | //Crear Material de control
+  165 | await page.waitForTimeout(1000);
+  166 | await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+  167 | await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+  168 | await page.getByText('Materiales de Control').nth(0).click();
+  169 | await page.getByRole('button', { name: 'Crear' }).click();
+  170 | await page.getByRole('textbox', { name: 'M. de control' }).click();
+  171 | await page.getByRole('textbox', { name: 'M. de control' }).fill('Material de control automatizado 1');
+  172 | await page.locator('#mat-mdc-slide-toggle-6-button').click();
+  173 | await page.getByRole('button', { name: 'Guardar' }).click();
+  174 | await expect(page.getByRole('alert', { name: 'Registro creado' })).toBeVisible();
+  175 | await page.close();
+  176 | });
+  177 |
+  178 |   test('Consumo de excel', async ({ page }) => {
+  179 |     const excelFileName = 'ExcelPrueba.xlsx';
+  180 |     const excelFilePath = path.join(__dirname, '.', 'pageobjects', excelFileName);
+  181 |
+  182 |     // Leer datos del Excel
+  183 |     const { descripcion, nivel, dropdownValue } = await getExcelData(excelFilePath);
+  184 |
+  185 |     if (!dropdownValue) {
+  186 |         console.error('Error: El valor de dropdownValue está vacío o no se obtuvo correctamente del Excel.');
+  187 |         return;
+  188 |     }
+  189 |
+  190 |     await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+  191 |
+  192 |     // Realizar el inicio de sesión
+  193 |     const loginUser = new LoginUser(page);
+  194 |     await loginUser.fillUsername();
+  195 |     const loginPage = new LoginPage(page);
+  196 |     await loginPage.clickOnSedeButton();
+  197 |     await page.waitForTimeout(500);
+  198 |     await loginPage.clickOnSedeNombre();
+  199 |     await page.waitForTimeout(500);
+  200 |     await loginPage.clickOnLogin();
+  201 |     
+  202 |     // Crear Analito Cuanti
+  203 |     await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+  204 |     await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+  205 |     await page.getByText('Analítos').nth(0).click();
+  206 |     await page.getByRole('button', { name: 'Crear' }).click();
+```

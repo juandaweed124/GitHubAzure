@@ -1,0 +1,5 @@
+Valor de dropdownValue: 'Hematologia'
+Se encontraron 43 opciones en la lista desplegable
+Opción encontrada: 'Quimica'
+Opción encontrada: 'Hematologia'
+Seleccionando opción: 'Hematologia'

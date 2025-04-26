@@ -1,9 +1,11 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="61.641003999999995">
-<testsuite name="pruebaValiQC.spec.ts" timestamp="2024-05-24T21:34:16.476Z" hostname="chromium" tests="1" failures="0" skipped="0" time="56.136" errors="0">
-<testcase name="Consumo de excel" classname="pruebaValiQC.spec.ts" time="56.136">
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="22.77755799999999">
+<testsuite name="pruebaValiQC.spec.ts" timestamp="2025-04-26T15:34:16.635Z" hostname="chromium" tests="1" failures="0" skipped="0" time="13.567" errors="0">
+<testcase name="Crear Unidad de medida" classname="pruebaValiQC.spec.ts" time="13.567">
 <system-out>
-<![CDATA[
-[[ATTACHMENT|..\test-results\pruebaValiQC-Consumo-de-excel-chromium\video.webm]]
+<![CDATA[✅ Login exitoso
+✅ Unidad de medida creada correctamente
+
+[[ATTACHMENT|..\test-results\pruebaValiQC-Crear-Unidad-de-medida-chromium\video.webm]]
 ]]>
 </system-out>
 </testcase>

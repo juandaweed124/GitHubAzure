@@ -7,14 +7,15 @@ export class LoginPage{
     private readonly loginButton: Locator
     private readonly clickNombreSede: Locator
     private readonly contraseña: string = 'VALIQCANNAR';
+    private readonly Captcha: Locator
 
     constructor(page: Page){
         this.loginButton = page.getByRole('button', {name:'Acceder'});
-        this.clickSedeButton = page.locator('ngx-select div');
-        this.clickNombreSede =  page.getByRole('link', { name: 'sede 45' });
+        this.clickSedeButton = page.locator('#mat-select-value-1');
+        this.clickNombreSede =  page.getByRole('option', { name: 'sede 45' });
         this.passwordTextbox = page.getByRole('textbox', {name:'Contraseña'});
         this.passwordTextbox.fill(this.contraseña);
-       
+        this.Captcha = page.getByLabel('No soy un robot');
     }
 
     async fillPassword(Password:string){
@@ -22,7 +23,7 @@ export class LoginPage{
     }
 
     async clickOnSedeButton(){
-        await this.clickSedeButton.nth(3).click()
+        await this.clickSedeButton.click()
         
      }
 
@@ -36,6 +37,29 @@ export class LoginPage{
        
     }
     
-
-
+    async clickOnCaptcha(page: Page) {
+        // Esperar y seleccionar el iframe del reCAPTCHA
+        const iframes = await page.frames();
+        const captchaIframe = iframes.find(frame => frame.url().includes('recaptcha/api2/anchor'));
+    
+        if (!captchaIframe) {
+            throw new Error('No se encontró el iframe del reCAPTCHA.');
+        }
+    
+        // Esperar a que el checkbox del CAPTCHA esté visible dentro del iframe
+        const captchaCheckbox = captchaIframe.locator('#recaptcha-anchor');
+        await captchaCheckbox.waitFor();
+        
+        // Mover el ratón hacia el CAPTCHA y hacer clic
+        await captchaCheckbox.hover();
+        await captchaCheckbox.click();
+    
+        // Verificar si el checkbox se marcó
+        await page.waitForTimeout(2000); // Espera 2 segundos
+        const isChecked = await captchaCheckbox.isChecked();
+    
+        if (!isChecked) {
+            throw new Error('El CAPTCHA no se marcó correctamente.');
+        }
+    }
 }
