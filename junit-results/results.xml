@@ -1,34 +1,11 @@
-<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="33.7352209999999">
-<testsuite name="pruebaValiQC.spec.ts" timestamp="2025-04-01T23:48:00.050Z" hostname="chromium" tests="1" failures="1" skipped="0" time="30.165" errors="0">
-<testcase name="Crear Analito" classname="pruebaValiQC.spec.ts" time="30.165">
-<failure message="pruebaValiQC.spec.ts:81:5 Crear Analito" type="FAILURE">
-<![CDATA[  [chromium] › pruebaValiQC.spec.ts:81:5 › Crear Analito ───────────────────────────────────────────
-
-    Test timeout of 30000ms exceeded.
-
-    Error: locator.click: Test timeout of 30000ms exceeded.
-    Call log:
-      - waiting for locator('#mat-mdc-form-field-label-76').getByText('Sección')
-
-
-      103 |   await page.getByRole('spinbutton', { name: 'Nivel' }).click();
-      104 |   await page.getByRole('spinbutton', { name: 'Nivel' }).fill('3');
-    > 105 |   await page.locator('#mat-mdc-form-field-label-76').getByText('Sección').click();
-          |                                                                           ^
-      106 |   await page.locator('#mat-option-90').getByText('Seccion Automatizada 1').click();
-      107 |   await page.locator('#mat-select-value-19').click();
-      108 |   await page.getByRole('option', { name: 'Cuantitativo' }).click();
-        at C:\Automatizacion\GitHubAzure\tests\pruebaValiQC.spec.ts:105:75
-
-    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
-    test-results\pruebaValiQC-Crear-Analito-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="22.77755799999999">
+<testsuite name="pruebaValiQC.spec.ts" timestamp="2025-04-26T15:34:16.635Z" hostname="chromium" tests="1" failures="0" skipped="0" time="13.567" errors="0">
+<testcase name="Crear Unidad de medida" classname="pruebaValiQC.spec.ts" time="13.567">
 <system-out>
 <![CDATA[✅ Login exitoso
+✅ Unidad de medida creada correctamente
 
-[[ATTACHMENT|..\test-results\pruebaValiQC-Crear-Analito-chromium\video.webm]]
+[[ATTACHMENT|..\test-results\pruebaValiQC-Crear-Unidad-de-medida-chromium\video.webm]]
 ]]>
 </system-out>
 </testcase>

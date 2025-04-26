@@ -1,0 +1,322 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Lote Materiales de Control QCI
+- Location: C:\Automatizacion\GitHubAzure\tests\pruebaValiQC.spec.ts:150:7
+
+# Error details
+
+```
+Error: Timed out 5000ms waiting for expect(locator).toBeVisible()
+
+Locator: getByRole('alert', { name: 'Registro creado' })
+Expected: visible
+Received: <element(s) not found>
+Call log:
+  - expect.toBeVisible with timeout 5000ms
+  - waiting for getByRole('alert', { name: 'Registro creado' })
+
+    at C:\Automatizacion\GitHubAzure\tests\pruebaValiQC.spec.ts:174:68
+```
+
+# Page snapshot
+
+```yaml
+- navigation:
+  - img "logoqc"
+  - img "User picture"
+  - button "Configuración":
+    - img
+    - paragraph: Configuración
+  - button "Control Calidad Interno" [expanded]:
+    - img
+    - paragraph: Control Calidad Interno
+  - button "Control Calidad Externo":
+    - img
+    - paragraph: Control Calidad Externo
+  - button "Postanalítico":
+    - img
+    - paragraph: Postanalítico
+  - button "Mantenimiento y calibradores":
+    - img
+    - paragraph: Mantenimiento y calibradores
+  - img
+  - text: "'"
+- main:
+  - img "logo IT Healt"
+  - link "Usuarios"
+  - link "Trazabilidad"
+  - navigation "breadcrumb":
+    - img
+    - list:
+      - listitem
+      - listitem: Control Calidad Interno
+      - listitem: Configuración
+      - listitem: Materiales de Control
+  - heading "Materiales de control" [level=1]
+  - button "Crear"
+  - text: Buscar
+  - textbox "Buscar"
+  - table:
+    - rowgroup:
+      - row "M. de control Estado Editar Eliminar":
+        - columnheader "M. de control":
+          - button "M. de control"
+        - columnheader "Estado":
+          - button "Estado"
+        - columnheader "Editar":
+          - button "Editar"
+        - columnheader "Eliminar":
+          - button "Eliminar"
+    - rowgroup:
+      - row "Test":
+        - cell "Test"
+        - cell:
+          - switch [checked]
+        - cell
+        - cell
+      - row "test 2":
+        - cell "test 2"
+        - cell:
+          - switch [checked]
+        - cell
+        - cell
+      - row "prueba kevin 2":
+        - cell "prueba kevin 2"
+        - cell:
+          - switch [checked]
+        - cell
+        - cell
+      - row "Control de Quimica":
+        - cell "Control de Quimica"
+        - cell:
+          - switch [checked]
+        - cell
+        - cell
+      - row "Material Especiales":
+        - cell "Material Especiales"
+        - cell:
+          - switch [checked]
+        - cell
+        - cell
+  - group:
+    - text: "Items per page:"
+    - combobox "5 Items per page:": "5"
+    - text: 1 – 5 of 50
+    - button "Previous page" [disabled]
+    - button "Next page"
+  - paragraph: IT Health Todos los derechos reservados - 2021 - 3.0.10
+- alert "El control de material es existente, por favor digite otro diferente."
+```
+
+# Test source
+
+```ts
+   74 |   
+   75 |   console.log("✅ Sección creada exitosamente");
+   76 |   await page.waitForTimeout(1000);
+   77 |
+   78 | });
+   79 |   
+   80 |   
+   81 | test('Crear Analito', async ({ page }) => {
+   82 |   await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+   83 |   // Login
+   84 |   const loginUser = new LoginUser(page);
+   85 |   await loginUser.fillUsername();
+   86 |   const loginPage = new LoginPage(page);
+   87 |   await loginPage.clickOnSedeButton();
+   88 |   await page.waitForTimeout(500);
+   89 |   await loginPage.clickOnSedeNombre();
+   90 |   await page.waitForTimeout(500);
+   91 |   await loginPage.clickOnLogin();
+   92 |
+   93 |   console.log("✅ Login exitoso");
+   94 |
+   95 | //Crear Analito
+   96 |   await page.waitForTimeout(1000);
+   97 |   await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+   98 |   await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+   99 |   await page.getByText('Analítos').nth(0).click();
+  100 |   await page.getByRole('button', { name: 'Crear' }).click();
+  101 |   await page.getByRole('textbox', { name: 'Nombre' }).click();
+  102 |   await page.getByRole('textbox', { name: 'Nombre' }).fill('Analito automatizado 2');
+  103 |   await page.getByRole('spinbutton', { name: 'Nivel' }).click();
+  104 |   await page.getByRole('spinbutton', { name: 'Nivel' }).fill('3');
+  105 |     await page.locator('#mat-mdc-form-field-label-14').getByText('Sección').click();
+  106 |   await page.locator('#mat-option-54').getByText('Seccion Automatizada 1').click();
+  107 |   await page.locator('#mat-select-value-5').click();
+  108 |   await page.getByText('Cuantitativo').click();
+  109 |   await page.locator('#mat-mdc-slide-toggle-6-button').click();
+  110 |   await page.getByRole('button', { name: 'Guardar' }).click();
+  111 |   await expect(page.getByRole('alert', { name: 'Registro creado' })).toBeVisible();
+  112 |
+  113 |   
+  114 |   console.log("✅ Analito creado exitosamente");
+  115 |   await page.waitForTimeout(1000);
+  116 |   await page.close();
+  117 | });
+  118 |
+  119 |
+  120 |   test('Crear Lote', async ({ page }) => {
+  121 |     await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+  122 |       // Realizar el inicio de sesión
+  123 |     // Login
+  124 |   const loginUser = new LoginUser(page);
+  125 |   await loginUser.fillUsername();
+  126 |   const loginPage = new LoginPage(page);
+  127 |   await loginPage.clickOnSedeButton();
+  128 |   await page.waitForTimeout(500);
+  129 |   await loginPage.clickOnSedeNombre();
+  130 |   await page.waitForTimeout(500);
+  131 |   await loginPage.clickOnLogin();
+  132 |       // Finalizar el inicio de sesión
+  133 |   await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+  134 |   await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+  135 |   await expect(page.locator('#accordion-header-1')).toContainText('Lotes');
+  136 |       // Inicia Crear Lote
+  137 |       const loteManager = new LoteManager(page);
+  138 |       const nombreLote1 = await loteManager.generarNombreLote();
+  139 |       console.log(nombreLote1); // Output: Ejemplo de nombre aleatorio: oQzP3LwS
+  140 |       await loteManager.seleccionarFechaActual();
+  141 |      // Activar el botón toggle
+  142 |      await page.locator('#mat-mdc-slide-toggle-6-button').first().click();
+  143 |       await page.getByRole('button', { name: 'Guardar' }).click();
+  144 |       await expect(page.getByRole('alert', { name: 'Registro creado' })).toBeVisible();
+  145 |       await page.waitForTimeout(1000);
+  146 |   });
+  147 |
+  148 |
+  149 |
+  150 |   test('Lote Materiales de Control QCI', async ({ page }) => {
+  151 |     await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+  152 |     // Realizar el inicio de sesión
+  153 |   // Login
+  154 | const loginUser = new LoginUser(page);
+  155 | await loginUser.fillUsername();
+  156 | const loginPage = new LoginPage(page);
+  157 | await loginPage.clickOnSedeButton();
+  158 | await page.waitForTimeout(500);
+  159 | await loginPage.clickOnSedeNombre();
+  160 | await page.waitForTimeout(500);
+  161 | await loginPage.clickOnLogin();
+  162 |     // Finalizar el inicio de sesión
+  163 |
+  164 | //Crear Material de control
+  165 | await page.waitForTimeout(1000);
+  166 | await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+  167 | await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+  168 | await page.getByText('Materiales de Control').nth(0).click();
+  169 | await page.getByRole('button', { name: 'Crear' }).click();
+  170 | await page.getByRole('textbox', { name: 'M. de control' }).click();
+  171 | await page.getByRole('textbox', { name: 'M. de control' }).fill('Material de control automatizado 1');
+  172 | await page.locator('#mat-mdc-slide-toggle-6-button').click();
+  173 | await page.getByRole('button', { name: 'Guardar' }).click();
+> 174 | await expect(page.getByRole('alert', { name: 'Registro creado' })).toBeVisible();
+      |                                                                    ^ Error: Timed out 5000ms waiting for expect(locator).toBeVisible()
+  175 | await page.close();
+  176 | });
+  177 |
+  178 |   test('Consumo de excel', async ({ page }) => {
+  179 |     const excelFileName = 'ExcelPrueba.xlsx';
+  180 |     const excelFilePath = path.join(__dirname, '.', 'pageobjects', excelFileName);
+  181 |
+  182 |     // Leer datos del Excel
+  183 |     const { descripcion, nivel, dropdownValue } = await getExcelData(excelFilePath);
+  184 |
+  185 |     if (!dropdownValue) {
+  186 |         console.error('Error: El valor de dropdownValue está vacío o no se obtuvo correctamente del Excel.');
+  187 |         return;
+  188 |     }
+  189 |
+  190 |     await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+  191 |
+  192 |     // Realizar el inicio de sesión
+  193 |     const loginUser = new LoginUser(page);
+  194 |     await loginUser.fillUsername();
+  195 |     const loginPage = new LoginPage(page);
+  196 |     await loginPage.clickOnSedeButton();
+  197 |     await page.waitForTimeout(500);
+  198 |     await loginPage.clickOnSedeNombre();
+  199 |     await page.waitForTimeout(500);
+  200 |     await loginPage.clickOnLogin();
+  201 |     
+  202 |     // Crear Analito Cuanti
+  203 |     await page.getByRole('button', { name: 'Control Calidad Interno' }).click();
+  204 |     await page.getByText('keyboard_arrow_right Configuración Unidades de MedidaSecciónAnalí').click();
+  205 |     await page.getByText('Analítos').nth(0).click();
+  206 |     await page.getByRole('button', { name: 'Crear' }).click();
+  207 |
+  208 |     // Ingresar datos desde Excel
+  209 |     await page.getByRole('textbox', { name: 'Nombre' }).click();
+  210 |     await page.getByRole('textbox', { name: 'Nombre' }).fill(descripcion);
+  211 |     await page.getByRole('spinbutton', { name: 'Nivel' }).click();
+  212 |     await page.getByRole('spinbutton', { name: 'Nivel' }).fill(nivel);
+  213 |
+  214 |     // Seleccionar valor de la lista desplegable de programas
+  215 |     console.log(`Valor de dropdownValue: '${dropdownValue.trim()}'`);
+  216 |
+  217 |     // Abrir la lista desplegable
+  218 |     await page.locator('#mat-mdc-form-field-label-14').click();
+  219 |
+  220 |     // Esperar a que las opciones estén en el DOM
+  221 |     await page.waitForSelector('.mat-mdc-option', { state: 'visible' });
+  222 |
+  223 |     // Obtener todas las opciones disponibles en el dropdown
+  224 |     const options = await page.$$('.mat-mdc-option');
+  225 |     console.log(`Se encontraron ${options.length} opciones en la lista desplegable`);
+  226 |
+  227 |     // Verificar el texto de cada opción
+  228 |     let optionFound = false;
+  229 |     for (const option of options) {
+  230 |         const text = (await option.textContent())?.trim();
+  231 |         console.log(`Opción encontrada: '${text}'`);
+  232 |
+  233 |         if (text === dropdownValue.trim()) {
+  234 |             console.log(`Seleccionando opción: '${text}'`);
+  235 |             await option.click();
+  236 |             optionFound = true;
+  237 |             break;
+  238 |         }
+  239 |     }
+  240 |
+  241 |     // Si no encontró la opción, manejar el error
+  242 |     if (!optionFound) {
+  243 |         console.error(`Error: No se encontró la opción '${dropdownValue.trim()}' en la lista desplegable.`);
+  244 |     }
+  245 |
+  246 |     // Continuar con la selección de otros campos
+  247 |     await page.locator('#mat-select-value-5').click();
+  248 |     await page.getByText('Cuantitativo').click();
+  249 |     await page.locator('#mat-mdc-slide-toggle-6-button').click();
+  250 |     await page.getByRole('button', { name: 'Guardar' }).click();
+  251 |     await expect(page.getByRole('alert', { name: 'Registro creado' })).toBeVisible();
+  252 |     await page.waitForTimeout(1000);
+  253 |     await page.close();
+  254 | });
+  255 |
+  256 |
+  257 |
+  258 |   
+  259 | /*
+  260 | test('Crear Analito Cuali QCI', async ({ page }) => {
+  261 |   await page.goto('https://valiqc-frontend-general-pruebas.azurewebsites.net/#/login');
+  262 |   const Login = new LoginPage(page)
+  263 |   await Login.LoginWithCredentials('ANNARVALI', 'VALIQCANNAR')
+  264 |   await expect (page.getByRole('img', {name: 'logo IT Healt'})).toBeVisible();
+  265 |   await page.locator('a').filter({ hasText: 'Control Calidad Interno' }).click();
+  266 |   await page.locator('a').filter({ hasText: /^Configuración$/ }).nth(1).click();
+  267 |   await page.getByText('Analítos').first().click();
+  268 |   await page.getByText('Crear').click();
+  269 |   await page.locator('#desAnalytes').click();
+  270 |   await page.locator('#desAnalytes').fill('Analito Cuanti QA Auto');
+  271 |   await page.getByLabel('Nivel *').click();
+  272 |   await page.getByLabel('Nivel *').fill('3');
+  273 |   await page.locator('#mat-input-1').click();
+  274 |   await page.getByText('Seccion Juan Simulacion').click();
+```
