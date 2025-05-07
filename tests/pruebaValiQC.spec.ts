@@ -39,7 +39,7 @@ test('Crear Unidad de medida', async ({ page }) => {
   await page.waitForTimeout(500);
   console.log("✅ Unidad de medida creada correctamente");
 
-
+//prueba push
 });
 //Test de prueba Automatizacion Capacitación
 
